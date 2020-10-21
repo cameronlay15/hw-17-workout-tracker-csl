@@ -49,3 +49,19 @@ const WorkoutSchema = new Schema({
     const dayOfWeek = this.day.getDay();
     return dayNames[dayOfWeek];
   });
+
+  WorkoutSchema.virtual("totalWeight").get(function () {
+    let totalWeight = 0;
+    for (let i=0; i<this.exercises.length; i++) {
+      if (typeof this.exercises[i].weight === "number") {
+        totalWeight += (this.exercises[i].weight * this.exercises[i].reps * this.exercises[i].sets);
+      }
+    }
+    return totalWeight;
+   
+  })
+  
+  const Workout = mongoose.model("workout", WorkoutSchema);
+  
+  module.exports = Workout;
+  
