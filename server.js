@@ -24,3 +24,18 @@ app.get("/exercise", (req, res) => {
   app.use(express.json());
   app.use(express.static("public"));
   require("./routes/routes.js")(app);
+
+  const PORT = process.env.PORT || 3000;
+
+const DeprecationWarning = {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+};
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", DeprecationWarning)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`localhost:${PORT}`);
+    });
+  });
