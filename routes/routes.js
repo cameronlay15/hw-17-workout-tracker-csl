@@ -78,3 +78,21 @@ module.exports = (app) => {
             exerciseNames: [],
           },
         ];
+
+        docs.forEach((workout) => {
+            let dayNumber = workout.day.getDay();
+            if (dayNumber === 0) dayNumber = 7;
+            data[dayNumber - 1].totalDuration += workout.totalDuration;
+            data[dayNumber - 1].totalWeight += workout.totalWeight;
+            workout.exercises.forEach((exercise) => {
+              data[dayNumber - 1].exerciseNames.push(exercise.name);
+            });
+          });
+    
+          const toDay = new Date();
+          if (data[6].dayNumber !== toDay.getDay()) {
+            data.unshift(data.pop());
+          }
+          return res.json(data);
+        });
+      });
