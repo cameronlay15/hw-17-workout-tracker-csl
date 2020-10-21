@@ -96,3 +96,19 @@ module.exports = (app) => {
           return res.json(data);
         });
       });
+
+      app.post("/api/workouts", (req, res) => {
+        const workout = req.body;
+        db.Workout.create({ workout }).then((result) => res.json(result))
+          .catch((err) => {
+            res.json(err);
+          });
+      });
+    
+      app.put("/api/workouts/:id", (req, res) => {
+        const exercise = req.body;
+        db.Workout.updateOne({ _id: req.params.id }, { $push: { exercises: exercise } })
+          .then((result) => res.json(result));
+      });
+    };
+    
