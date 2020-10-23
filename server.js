@@ -33,7 +33,7 @@ const DeprecationWarning = {
   useUnifiedTopology: true,
 };
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", DeprecationWarning)
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw-17-workout-tracker", DeprecationWarning)
   .then(() => {
     app.listen(PORT, () => {
       console.log(`localhost:${PORT}`);
